@@ -1,0 +1,89 @@
+﻿@using MyProject.Models
+@using MyProject.Manipulation
+@{
+    ViewData["Title"] = "Candidates";
+}
+@model IndexViewModel
+
+<form method="get">
+    <div class="form-inline">
+        <p></p>
+        <label class="control-label">Имя: </label>
+        @Html.TextBox("name", Model.FilterViewModel.SelectedName,
+             htmlAttributes: new { @class = "form-control" })
+
+        <label class="control-label">Возраст: </label>
+        @Html.TextBox("age", Model.FilterViewModel.SelectedAge,
+             htmlAttributes: new { @class = "form-control" })
+
+        <input type="submit" value="Фильтр" class="btn btn-default" />
+    </div>
+</form>
+<table class="table" style="margin-top:5px">
+    <tr>
+        <th>
+            <a asp-action="Index"
+               asp-route-sortOrder="@(Model.SortViewModel.NameSort)"
+               asp-route-name="@(Model.FilterViewModel.SelectedName)">Имя</a>
+        </th>
+        <th>
+            <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.AgeSort)"
+               asp-route-name="@(Model.FilterViewModel.SelectedName)">Возраст</a>
+        </th>
+        <th>
+            <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.ExpSort)"
+               asp-route-name="@(Model.FilterViewModel.SelectedName)">Опыт</a>
+        </th>
+
+        @if (Model.Candidates.First().Salary != 0)
+
+    {
+        <th>
+            <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.SalarySort)"
+               asp-route-name="@(Model.FilterViewModel.SelectedName)">З.П.</a>
+        </th>
+}
+
+
+        <th>Резюме</th>
+        <th>Просмотр</th>
+        @if (Model.Candidates.First().Salary != 0)
+    {
+        <th>Редактирование</th>
+}       
+        <th></th>
+    </tr>
+
+    <tbody>
+        @foreach (var candidate in Model.Candidates)
+        {
+        <tr>
+            <td>@candidate.Name</td>
+            <td>@candidate.Age</td>
+            @if (candidate.Experience > 4)
+    {
+        <td>@candidate.Experience лет</td>
+}
+            <td>@candidate.Experience год</td>
+            @if (candidate.Salary != 0)
+    {
+        <td>@candidate.Salary</td>
+}
+
+            <td><a href="~/Content/@candidate.Resume">Скачать</a></td>
+            <td><a href=@Url.Action("FullInfo", new { item_id = candidate.Id })>Info</a></td>
+            @if (candidate.Salary != 0)
+    {
+        <td><a href=@Url.Action("Editing", new { item_id = candidate.Id })>Change</a></td>
+        <td><a href=@Url.Action("Delete", new { item_id = candidate.Id })>Delete</a></td>
+}
+
+        </tr>
+        }
+    </tbody>
+</table>
+@if (Model.Candidates.First().Salary != 0)
+{
+<a class="btn btn-primary" href=@Url.Action("Create") role="button">Add new Candidate</a>
+}
+

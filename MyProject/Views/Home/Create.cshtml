@@ -1,0 +1,39 @@
+﻿@model  MyProject.Models.Candidate
+@{
+    ViewData["Title"] = "Create";
+}
+
+<form asp-action="create" asp-controller="home" enctype="multipart/form-data" style="margin-top:5px">
+    <div class="form-group">
+        <label asp-for="Name" class="control-label">Ф.И.О.*</label>
+        <input required type="text" asp-for="Name" class="form-control" pattern="^[a-zA-Z\s]+$" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Age" class="control-label">Возраст</label>
+        <input required type="number" asp-for="Age" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Position" class="control-label">Должность*</label>
+        <input required type="text" asp-for="Position" class="form-control" pattern="^[a-zA-Z\s]+$" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Salary" class="control-label">З.П.</label>
+        <input required type="number" asp-for="Salary" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="StartDate" class="control-label">Начало общения</label>
+        <input required type="date" asp-for="StartDate" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Experience" class="control-label">Опыт</label>
+        <input required type="number" asp-for="Experience" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Резюме</label>
+        <input required type="file" name="uploadedFile" /><br>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Send" class="btn btn-default" />
+    </div>
+    <h5><b>Поле с * допускает ввод только латинских букв</b></h5>
+</form>

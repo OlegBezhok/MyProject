@@ -1,0 +1,30 @@
+﻿@model MyProject.Models.Candidate
+@{
+    ViewData["Title"] = "FullInfo";
+}
+
+
+<h2>Кандидат @Model.Name</h2>
+<div>
+    <dl class="dl-horizontal">
+        <dt>Возраст</dt>
+        <dd>@Model.Age</dd>
+        <dt>Опыт</dt>
+        @if (Model.Experience > 4)
+    {
+        <dd>@Model.Experience лет</dd>
+}
+        <dd>@Model.Experience год</dd>
+    <dt>Должность</dt>
+    <dd>@Model.Position</dd>
+    @if (Model.Salary != 0)
+{
+    <dt>З.П.</dt>
+    <dd>@Model.Salary</dd>
+}
+    <dt>Дата начала</dt>
+    <dd>@Model.StartDate</dd>
+    <dt>Резюме</dt>
+    <dd><a href="~/Content/@Model.Resume">Скачать</a></dd>
+    </dl>
+</div>
